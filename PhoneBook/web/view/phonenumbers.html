@@ -5,27 +5,15 @@
         <title>PhoneBook</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="lib/css/bootstrap.min.css" rel="stylesheet">
-        <link href="lib/css/style.css" rel="stylesheet">
-        <link rel="stylesheet" href="lib/css/bootstrap-theme.css" type="text/css"/>
+        <link href="../lib/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../lib/css/style.css" rel="stylesheet">
+        <link rel="stylesheet" href="../lib/css/bootstrap-theme.css" type="text/css"/>
         <script src="controllers/AbonentController.js"></script>
         <script src="controllers/AdminController.js"></script>
         <script src="controllers/PhoneNumberController.js"></script>
         <script src="service/AbonentService.js"></script>
         <script src="service/AdminService.js"></script>
         <script src="service/PhoneNumberService.js"></script>
-        
-         <script>
-            function abonentClick(id)
-            {
-              var phonenumberController =  new PhoneNumberController();
-              phonenumberController.getPhoneNumberByAbonentIdView(id);
-            }
-            function phonenumberClick(id)
-            {
-              document.location.href="/Phonebook/view/phonenumbers.html?id=" +id;
-            }
-        </script>
     </head>
 
   <body>
@@ -49,7 +37,7 @@
             <div class="navbar-inner">
                 <div class="container">
                     <ul class="nav">
-                        <li>
+                         <li>
                             <a href="/Phonebook/">Main</a>
                         </li>
 
@@ -81,18 +69,17 @@
       </div>
     </div>
     <!--  ================================================== -->
-    <script src="lib/js/jquery.min.js"></script>
-    <script src="lib/js/bootstrap.min.js"></script>
+    <script src="../lib/js/jquery.min.js"></script>
+    <script src="../lib/js/bootstrap.min.js"></script>
     <script>
          window.onload = function()
          {
-  
-              var controller = new AbonentController();
-              controller.getAllAbonentView(); 
-              var phonenumberController =  new PhoneNumberController();
-              phonenumberController.getPhoneNumberByAbonentId(4);
-              
-         };
+            var url = new URL(document.location.href);
+            var id= url.searchParams.get("id");
+            
+            var phonenumberController =  new PhoneNumberController();
+            phonenumberController.getPhoneNumberByIdView(1);
+         }
         
     </script>
   </body>
