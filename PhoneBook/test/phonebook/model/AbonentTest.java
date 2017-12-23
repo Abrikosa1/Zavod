@@ -48,7 +48,7 @@ public class AbonentTest {
         assertEquals(abonent.getPatronymic(),"patronymic");
         
         abonent.setId(2);
-        assertEquals(abonent.getId(),2);
+        assertEquals(abonent.getId(),3);
         
         abonent.setFirstName("Ivan");
         assertEquals(abonent.getFirstName(),"Ivan");
