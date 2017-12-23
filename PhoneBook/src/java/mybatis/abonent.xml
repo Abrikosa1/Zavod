@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+  
+<mapper namespace="abonent"> 
+ 
+    <resultMap id = "result" type = "phonebook.model.Abonent"> 
+       <result property = "id" column = "id"/> 
+       <result property = "firstName" column = "firstName"/> 
+       <result property = "lastName" column = "lastName"/>
+       <result property = "patronymic" column = "patronymic"/>
+       <collection property="phonenumber" javaType="List" ofType="phonebook.model.PhoneNumber" column="id"  select="selectPhoneNumber" />
+    </resultMap> 
+ 
+  <select id="selectPhoneNumber" parameterType="int" resultMap="phonenumber.result">  
+          select * from phonenumber where abonentId = #{id}
+    </select>
+    
+    <select id = "selectAll" resultMap = "result"> 
+       SELECT * FROM abonent;  
+    </select> 
+
+    <select id = "selectById" parameterType = "int" resultMap = "result"> 
+       SELECT * FROM abonent WHERE id = #{id}; 
+    </select> 
+
+    <update id = "update" parameterType = "phonebook.model.Abonent"> 
+       UPDATE abonent SET 
+        firstName = #{firstName}, 
+        lastName = #{lastName},
+        patronymic = #{patronymic},
+        WHERE id = #{id}; 
+    </update> 
+  
+    <delete id = "deleteById" parameterType = "int"> 
+       DELETE from abonent WHERE id = #{id}; 
+    </delete> 
+
+    <insert id = "insert" parameterType = "phonebook.model.Abonent"> 
+       INSERT INTO Abonent (firstName, lastName, patronymic)  
+       VALUES (#{firstName}, #{lastName}, #{patronymic});     
+    </insert>
+</mapper> 
