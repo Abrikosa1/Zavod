@@ -1,4 +1,4 @@
-cclass AbonentService
+class AbonentService
 {
     getAllAbonent()
     {
