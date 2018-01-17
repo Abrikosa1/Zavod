@@ -6,13 +6,15 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>ZAVOD</title>
+        <title>Imperativ</title>
         <meta charset="UTF-8">
         <link href="lib/css/bootstrap.min.css" rel="stylesheet">
         <link href="lib/css/bootstrap-theme.min.css" rel="stylesheet">
         <link href="lib/css/style.css" rel="stylesheet">
         <link rel="stylesheet" href="lib/css/bootstrap.css" type="text/css"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="service/NewsService.js"></script>
+        <script src="controllers/NewsController.js"></script>
     </head>
     <body>
         <div class="containerrr">
@@ -21,9 +23,6 @@ and open the template in the editor.
                     <div class="menuFloat">
                         <div class="menuLeft">
                             <div class="menuLeftLogo">Logo</div>
-                            <a href="#" class="menuitem">Menu Item 1</a>
-                            <a href="#" class="menuitem">Menu Item 2</a>
-                            <a href="#" class="menuitem">Menu Item 3</a>
                         </div>
                     </div>
                 </div>
@@ -32,20 +31,18 @@ and open the template in the editor.
                 <div class="row">        
 
                     <div class="list-group">
-                        <a class="list-group-item" href="#"><i class="glyphicon glyphicon-home btn-lg"></i>Главная</a>
-                        <a class="list-group-item" href="#"><i class="glyphicon glyphicon-list-alt btn-lg"></i>Новости</a>
-                        <a class="list-group-item" href="#"><i class="glyphicon glyphicon-certificate btn-lg"></i>Услуги</a>
-                        <a class="list-group-item" href="#"><i class="glyphicon glyphicon-info-sign btn-lg"></i>О компании</a>
-                        <a class="list-group-item" href="#"><i class="glyphicon glyphicon-briefcase btn-lg"></i>Проекты</a>
-                        <a class="list-group-item" href="#"><i class="glyphicon glyphicon-user btn-lg"></i>Вакансии</a>
-                        <a class="list-group-item" href="#"><i class="glyphicon glyphicon-phone-alt btn-lg"></i>Контакты</a>
-                        <a class="list-group-item" href="#"><i class="glyphicon glyphicon-wrench btn-lg"></i> Nastavenia</a>
-                        <a class="list-group-item" href="#"><i class="glyphicon glyphicon-wrench btn-lg"></i> Nastavenia</a>
-                        <a class="list-group-item" href="#"><i class="glyphicon glyphicon-wrench btn-lg"></i> Nastavenia</a>
+                        <a class="list-group-item" href="/Zavod/index.html"><i class="glyphicon glyphicon-home btn-lg"></i>Главная</a>
+                        <a class="list-group-item" href="/Zavod/view/news.html"><i class="glyphicon glyphicon-list-alt btn-lg"></i>Новости</a>
+                        <a class="list-group-item" href="/Zavod/view/service.html"><i class="glyphicon glyphicon-briefcase btn-lg"></i>Наши услуги</a>
+                        <a class="list-group-item" href="/Zavod/view/projects.html"><i class="glyphicon glyphicon-certificate btn-lg"></i>Проекты</a>
+                        <a class="list-group-item" href="/Zavod/view/vacancies.html"><i class="glyphicon glyphicon-user btn-lg"></i>Вакансии</a>
+                        <a class="list-group-item" href="/Zavod/view/about.html"><i class="glyphicon glyphicon-info-sign btn-lg"></i>О компании</a>
+                        <a class="list-group-item" href="/Zavod/view/contacts.html"><i class="glyphicon glyphicon-phone-alt btn-lg"></i>Контакты</a>
                     </div>
                 </div>
             </div>
             <div class="maincontent">
+                <div id="news"></div>
                 <section>
                     <article class="slider">
                         <div class="slider__slides">
@@ -79,171 +76,131 @@ and open the template in the editor.
             </div>
             <div class="clear"></div>
             <div class="footer">
-                <div class="menuWrapper">
-                    <div class="menuFloat">
-                        <div class="menuLeft" >
-                            <h1>Не своровано с bootsnipp.</h1>
+                <div class="footer-top">
+                    <div class="container">
+                        <div class="row text-center">
+                            <div class="col-md-12">
+                                <h2>Learn almost anything  </h2>
+                            </div>
+                            <div class="col-md-12">
+                                Stay in the loop on all upcoming promotions, discounts and latest updates
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
-         <script>
-             'use strict';
+            </div>
+        <script>
+                    'use strict';
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+          function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-/*********************
- *	Helpers Code
- ********************/
-/**
- *  @function   DOMReady
- *
- *  @param callback
- *  @param element
- *  @param listener
- *  @returns {*}
- *  @constructor
- */
-var DOMReady = function DOMReady() {
-  var callback = arguments.length <= 0 || arguments[0] === undefined ? function () {} : arguments[0];
-  var element = arguments.length <= 1 || arguments[1] === undefined ? document : arguments[1];
-  var listener = arguments.length <= 2 || arguments[2] === undefined ? 'addEventListener' : arguments[2];
+          var DOMReady = function DOMReady() {
+          var callback = arguments.length <= 0 || arguments[0] === undefined ? function () {} : arguments[0];
+          var element = arguments.length <= 1 || arguments[1] === undefined ? document : arguments[1];
+          var listener = arguments.length <= 2 || arguments[2] === undefined ? 'addEventListener' : arguments[2];
 
-  return element[listener] ? element[listener]('DOMContentLoaded', callback) : window.attachEvent('onload', callback);
-};
+          return element[listener] ? element[listener]('DOMContentLoaded', callback) : window.attachEvent('onload', callback);
+          };
 
-/*********************
- *	Application Code
- ********************/
-/**
- *  @class  SimpleSlider
- */
+          var SimpleSlider = function () {
 
-var SimpleSlider = function () {
-  /**
-   *  @constructor
-   *
-   *  @param element
-   *  @param options
-   */
+          function SimpleSlider(element) {
+           var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
-  function SimpleSlider(element) {
-    var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+           _classCallCheck(this, SimpleSlider);
 
-    _classCallCheck(this, SimpleSlider);
+           this.el = document.querySelector(element);
+           this.options = Object.assign({
+             'slides': '.slider__slide',
+             'controls': '.slider__control',
+             'sliding-time-seconds': '1.3',
+             'js-slide': '.js-slide',
+             'js-control': '.js-control'
+           }, options);
 
-    this.el = document.querySelector(element);
-    this.options = Object.assign({
-      'slides': '.slider__slide',
-      'controls': '.slider__control',
-      'sliding-time-seconds': '1.3',
-      'js-slide': '.js-slide',
-      'js-control': '.js-control'
-    }, options);
+           this.init();
+          }
+          SimpleSlider.prototype.init = function init() {
+           var _this = this;
 
-    this.init();
-  }
-  /**
-   *  @function init
-   *
-   *  @public
-   */
+           this.slides = this.el.querySelectorAll(this.options.slides);
+           this.controls = this.el.querySelectorAll(this.options.controls);
+           this.countOfSlides = this.slides.length;
+           this.slidingTime = this.options['sliding-time-seconds'] * 1000;
+           this.slidingLock = false;
 
-  SimpleSlider.prototype.init = function init() {
-    var _this = this;
+           [].slice.call(this.slides).forEach(function (el, index) {
+             var i = index + 1;
 
-    this.slides = this.el.querySelectorAll(this.options.slides);
-    this.controls = this.el.querySelectorAll(this.options.controls);
-    this.countOfSlides = this.slides.length;
-    this.slidingTime = this.options['sliding-time-seconds'] * 1000;
-    this.slidingLock = false;
+             el.classList.add(_this.options['js-slide'].substring(1) + '--' + i);
+             el.dataset.slide = i;
 
-    [].slice.call(this.slides).forEach(function (el, index) {
-      var i = index + 1;
+             if (i === 1) {
+               el.classList.add(_this.options['js-slide'].substring(1) + '--active');
+             }
+           });
 
-      el.classList.add(_this.options['js-slide'].substring(1) + '--' + i);
-      el.dataset.slide = i;
+           [].slice.call(this.controls).forEach(function (el, index) {
+             var elData = el.dataset,
+                 i = index + 1;
 
-      if (i === 1) {
-        el.classList.add(_this.options['js-slide'].substring(1) + '--active');
-      }
-    });
+             i === 1 ? elData.control = 'left' : elData.control = 'right';
 
-    [].slice.call(this.controls).forEach(function (el, index) {
-      var elData = el.dataset,
-          i = index + 1;
+             el.addEventListener('click', _this._controlAction.bind(_this, el), false);
+           });
+          };
 
-      i === 1 ? elData.control = 'left' : elData.control = 'right';
+          SimpleSlider.prototype._controlAction = function _controlAction(el) {
+           var _this2 = this;
 
-      el.addEventListener('click', _this._controlAction.bind(_this, el), false);
-    });
-  };
-  /**
-   *  @function _controlAction
-   *
-   *  @param el
-   *  @private
-   */
+           if (this.slidingLock) {
+             return;
+           }
+           this.slidingLock = true;
 
-  SimpleSlider.prototype._controlAction = function _controlAction(el) {
-    var _this2 = this;
+           var currentControl = el,
+               currentActive = this.el.querySelector(this.options['js-slide'] + '--active'),
+               isLeftControl = currentControl.getAttribute('data-control') === 'left',
+               indexOfCurrentSlide = +currentActive.getAttribute('data-slide'),
+               newActive = undefined,
+               jsSlideActive = this.options['js-slide'].substring(1) + '--active',
+               jsSlideActivePrev = this.options['js-slide'].substring(1) + '--active-prev',
+               jsControlActive = this.options['js-control'].substring(1) + '--active';
 
-    if (this.slidingLock) {
-      return;
-    }
-    this.slidingLock = true;
+           isLeftControl ? --indexOfCurrentSlide : ++indexOfCurrentSlide;
 
-    var currentControl = el,
-        currentActive = this.el.querySelector(this.options['js-slide'] + '--active'),
-        isLeftControl = currentControl.getAttribute('data-control') === 'left',
-        indexOfCurrentSlide = +currentActive.getAttribute('data-slide'),
-        newActive = undefined,
-        jsSlideActive = this.options['js-slide'].substring(1) + '--active',
-        jsSlideActivePrev = this.options['js-slide'].substring(1) + '--active-prev',
-        jsControlActive = this.options['js-control'].substring(1) + '--active';
+           if (indexOfCurrentSlide < 1) {
+             indexOfCurrentSlide = this.countOfSlides;
+           }
+           if (indexOfCurrentSlide > this.countOfSlides) {
+             indexOfCurrentSlide = 1;
+           }
 
-    isLeftControl ? --indexOfCurrentSlide : ++indexOfCurrentSlide;
+           newActive = this.el.querySelector(this.options['js-slide'] + '--' + indexOfCurrentSlide);
 
-    if (indexOfCurrentSlide < 1) {
-      indexOfCurrentSlide = this.countOfSlides;
-    }
-    if (indexOfCurrentSlide > this.countOfSlides) {
-      indexOfCurrentSlide = 1;
-    }
+           isLeftControl ? newActive.classList.add(jsSlideActive, jsSlideActivePrev) : newActive.classList.add(jsSlideActive);
 
-    newActive = this.el.querySelector(this.options['js-slide'] + '--' + indexOfCurrentSlide);
+           currentControl.classList.add(jsControlActive);
+           currentActive.classList.remove(jsSlideActive, jsSlideActivePrev);
 
-    isLeftControl ? newActive.classList.add(jsSlideActive, jsSlideActivePrev) : newActive.classList.add(jsSlideActive);
+           setTimeout(function () {
+             currentControl.classList.remove(jsControlActive);
 
-    currentControl.classList.add(jsControlActive);
-    currentActive.classList.remove(jsSlideActive, jsSlideActivePrev);
+             _this2.slidingLock = false;
+           }, this.slidingTime);
+          };
 
-    setTimeout(function () {
-      currentControl.classList.remove(jsControlActive);
+          return SimpleSlider;
+          }();
 
-      _this2.slidingLock = false;
-    }, this.slidingTime);
-  };
+          var readyFunction = function readyFunction() {
+          return new SimpleSlider('.slider');
+          };
 
-  return SimpleSlider;
-}();
 
-/**
- *  @function   readyFunction
- *
- *  @type {Function}
- */
-
-var readyFunction = function readyFunction() {
-  return new SimpleSlider('.slider');
-};
-
-/**
- *  Launcher
- */
-DOMReady(readyFunction);
-             </script>
+          DOMReady(readyFunction);
+        </script>
         <script src="lib/js/jquery.min.js"></script>
         <script src="lib/js/bootstrap.min.js"></script>
     </body>
